@@ -25,6 +25,13 @@ class MyPlugin(Star):
         else:
             yield event.plain_result(f"今天已经签到了~\n已经签到了{total}天")
 
+    @filter.command("清空签到")
+    async def clear_sign(self, event: AstrMessageEvent):
+        """清空自己签到数据（调试用）"""
+        user_id = event.get_sender_id()
+        await self.delete_kv_data(f"sign_date_{user_id}")
+        await self.delete_kv_data(f"sign_total_{user_id}")
+        yield event.plain_result("✅ 你的签到数据已清空，可以重新签到！")
 
     @filter.command("help")
     async def help(self,event:AstrMessageEvent):
