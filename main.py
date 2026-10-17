@@ -11,7 +11,7 @@ class MyPlugin(Star):
     async def qiandao(self,event:AstrMessageEvent):
         user_name = event.get_sender_name()
         user_id = event.get_sender_id()
-        a = await self.put_kv_data(f"name_{user_id}",0)
+        a = await self.get_kv_data(f"name_{user_id}",0)
         if a[f"name_{user_id}"] == 0:
             a[f"name_{user_id}"] = 1
             yield event.plain_result(f"签到成功！{user_name}")
