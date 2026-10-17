@@ -14,6 +14,6 @@ class MyPlugin(Star):
 
 
 
-    @filter.command_help("help")
+    @filter.command("help")
     async def help(self,event:AstrMessageEvent):
         yield event.plain_result("显示本帮助")
