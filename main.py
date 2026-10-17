@@ -23,7 +23,7 @@ class MyPlugin(Star):
             await self.put_kv_data(f"name_{user_id}",total)
             yield event.plain_result(f"签到成功{user_name}\n今天是你签到的第{total}天")
         else:
-            yield event.plain_result(f"今天已经签到了~")
+            yield event.plain_result(f"今天已经签到了~\n已经签到了{total}天")
 
 
     @filter.command("help")
