@@ -10,7 +10,13 @@ class MyPlugin(Star):
     @filter.command("签到") # 注册名为签到的指令 发送/签到后执行下面代码
     async def qiandao(self,event:AstrMessageEvent):
         user_name = event.get_sender_name()
-        yield event.plain_result(f"签到成功！{user_name}")
+        a = await self.get.putkv_data({user_name},0)
+        if a[user_name] == 0:
+            a[user_name] = 1
+            yield event.plain_result(f"签到成功！{user_name}")
+        else:
+            yield event.plain_result(f"你今日已签到！{user_name}")
+
 
 
 
