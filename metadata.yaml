@@ -1,6 +1,18 @@
-name: astrbot_plugin_text # 插件唯一识别名，以 astrbot_plugin_ 前缀开头
-display_name: my first plugs # 用于展示的名字，可以是方便人类阅读的名字（需要版本 >= v4.5.0，低版本不会报错，请放心填写）
-desc: 这是一个普通插件 # 插件简短描述
-version: v1.0.1 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: 桃薰 # 作者
-repo: https://github.com/THUTAO-Tn/astrbot_plugin_text.git # 插件的仓库地址
+name: astrbot_plugin_link_downloader
+display_name: 链接下载器
+short_desc: 群聊内解析蓝奏云/百度网盘/夸克网盘/GitHub 链接，列出文件并下载回传
+desc: >
+  在群聊中发送 /download 加资源链接，插件会解析并列出网盘 / GitHub 内的文件清单，
+  群成员（仅发起人）回复序号即可把文件下载到本地临时目录并上传回当前群聊。
+  支持蓝奏云、百度网盘、夸克网盘、GitHub Release / Raw 直链；支持提取密码、
+  GitHub 镜像自动轮换、单文件体积上限、会话等待超时与临时文件自动清理。
+version: v1.0.0
+author: yourname
+repo: https://github.com/yourname/astrbot_plugin_link_downloader
+astrbot_version: ">=4.0.0"
+support_platforms:
+  - aiocqhttp
+  - telegram
+  - discord
+  - lark
+  - slack

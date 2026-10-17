@@ -1,0 +1,103 @@
+{
+  "github_mirrors": {
+    "description": "GitHub 下载镜像列表",
+    "type": "list",
+    "default": [
+      "https://ghproxy.net/{url}",
+      "https://ghfast.top/{url}",
+      "https://gh-proxy.com/{url}",
+      "https://hub.gitmirror.com/{url}",
+      "https://ghproxy.cc/{url}",
+      "https://gh.llkk.cc/{url}"
+    ],
+    "hint": "GitHub 官方地址请求超时或失败时，按顺序轮换这些镜像重试。链接中可用 {url} 表示原始地址；若未写 {url}，则视为前缀自动拼接（例如 https://ghproxy.net/）。"
+  },
+  "github_token": {
+    "description": "GitHub Token（可选）",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "仅用于 GitHub API 列出 Release 资产时提升速率限制（未登录 60 次/小时，登录后 5000 次/小时）。不填也能正常使用。"
+  },
+  "network_timeout": {
+    "description": "网络超时时间（秒）",
+    "type": "int",
+    "default": 60,
+    "slider": { "min": 10, "max": 600, "step": 10 },
+    "hint": "单次 HTTP 请求 / 单个文件下载的超时时间。GitHub 原始地址超时后会立即轮换到下一个镜像。"
+  },
+  "max_file_size_mb": {
+    "description": "单文件最大体积（MB）",
+    "type": "int",
+    "default": 200,
+    "slider": { "min": 0, "max": 4096, "step": 10 },
+    "hint": "超过该体积的文件会被跳过并给出提示；设为 0 表示不限制（不建议，可能撑爆磁盘）。"
+  },
+  "session_timeout": {
+    "description": "会话等待超时（秒）",
+    "type": "int",
+    "default": 120,
+    "slider": { "min": 30, "max": 1800, "step": 10 },
+    "hint": "发出文件清单后，等待发起人回复序号的最长时间，超时自动清空本次任务并提示过期。"
+  },
+  "request_interval": {
+    "description": "请求间隔（秒）",
+    "type": "float",
+    "default": 1.0,
+    "slider": { "min": 0, "max": 5, "step": 0.1 },
+    "hint": "两次 HTTP 请求之间的最小间隔，用于控制爬虫频率，避免被网盘风控封禁。"
+  },
+  "max_batch_files": {
+    "description": "单次批量下载上限",
+    "type": "int",
+    "default": 5,
+    "slider": { "min": 1, "max": 20, "step": 1 },
+    "hint": "一次回复最多允许选择的文件数量，防止刷屏式批量下载。"
+  },
+  "platform_upload_limit_mb": {
+    "description": "适配器上传体积提示阈值（MB）",
+    "type": "int",
+    "default": 100,
+    "slider": { "min": 0, "max": 2048, "step": 10 },
+    "hint": "不同适配器（QQ 群文件 / Telegram / Discord 等）上传限制不同。文件超过该阈值时，会提前提示用户可能上传失败。"
+  },
+  "max_depth": {
+    "description": "网盘目录递归深度",
+    "type": "int",
+    "default": 3,
+    "slider": { "min": 1, "max": 8, "step": 1 },
+    "hint": "百度网盘 / 夸克网盘分享为文件夹时，最多递归展开的层数。"
+  },
+  "user_agent": {
+    "description": "自定义 User-Agent",
+    "type": "string",
+    "default": "",
+    "hint": "留空则使用内置的桌面浏览器 UA。部分网盘对 UA 敏感，可自行调整。"
+  },
+  "baidu_cookie": {
+    "description": "百度网盘 Cookie（可选）",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "百度网盘大文件下载需要登录态，填写浏览器登录 pan.baidu.com 后的完整 Cookie 可显著提升成功率。"
+  },
+  "quark_cookie": {
+    "description": "夸克网盘 Cookie（可选）",
+    "type": "string",
+    "default": "",
+    "secret": true,
+    "hint": "夸克网盘直链下载通常需要登录 Cookie，填写浏览器登录 pan.quark.cn 后的完整 Cookie 才能稳定下载。"
+  },
+  "use_aiocqhttp_upload": {
+    "description": "QQ 使用 upload_group_file 上传群文件",
+    "type": "bool",
+    "default": true,
+    "hint": "开启后，在 aiocqhttp（QQ 个人号）平台会优先调用协议端的 upload_group_file 接口上传文件，失败时自动退回通用 File 消息段。其他平台忽略此项。"
+  },
+  "keep_failed_temp": {
+    "description": "上传失败时保留临时文件",
+    "type": "bool",
+    "default": false,
+    "hint": "默认关闭：上传结束后无论成功失败都删除临时文件，避免占用磁盘。开启后仅在上传失败时保留文件，便于排查问题。"
+  }
+}
